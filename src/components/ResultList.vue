@@ -1,6 +1,6 @@
 <template>
   <section class="search-result">
-    <!-- Search results movies-->
+    //// Search results movies
     <div v-if="type === 'movies'">
       <ul v-for="item in list" :key="item.id">
         <li>Titolo: {{ item.title }}</li>
@@ -19,7 +19,7 @@
       </ul>
     </div>
 
-    <!-- Search results movies-->
+    //// Search results movies
     <div v-else>
       <ul v-for="item in list" :key="item.id">
         <li>Titolo: {{ item.name }}</li>
