@@ -1,28 +1,49 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!--//// HEADER -->
+    <header>
+      <!-- Search-bar -->
+      <input placeholder="Cerca qui" type="text" v-model="searchTerm" />
+      <button @click="search" type="button">Vai</button>
+    </header>
+    <!--//// MAIN -->
+    <main>
+      <Search :movies="movies" />
+    </main>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Search from "@/components/Search.vue";
+import axios from "axios";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    Search,
+  },
+  data() {
+    return {
+      searchTerm: "",
+      movies: [],
+      api: {
+        baseUrl: "https://api.themoviedb.org/3",
+        key: "65c487d37adb6d43703803bbf76ecede",
+      },
+    };
+  },
+  methods: {
+    search() {
+      axios
+        .get(
+          `${this.api.baseUrl}/search/movie?api_key=${this.api.key}&query=${this.searchTerm}`
+        )
+        .then((res) => {
+          this.movies = res.data.results;
+        });
+    },
+  },
+};
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
