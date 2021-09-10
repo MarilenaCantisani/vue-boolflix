@@ -8,19 +8,23 @@
     </header>
     <!--//// MAIN -->
     <main>
-      <Search :movies="movies" />
+      <!-- Search results movies -->
+      <ul v-for="movie in movies" :key="movie.id">
+        MOVIES
+        <li>Titolo: {{ movie.title }}</li>
+        <li>Titolo Originale: {{ movie.original_title }}</li>
+        <li>Lingua: {{ movie.original_language }}</li>
+        <li>Voto: {{ movie.vote_average }}</li>
+      </ul>
     </main>
   </div>
 </template>
 
 <script>
-import Search from "@/components/Search.vue";
 import axios from "axios";
 export default {
   name: "App",
-  components: {
-    Search,
-  },
+  components: {},
   data() {
     return {
       searchTerm: "",
