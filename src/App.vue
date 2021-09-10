@@ -2,15 +2,12 @@
   <div id="app">
     <!--//// HEADER -->
     <header>
-      <!-- Search-bar -->
-      <input placeholder="Cerca qui" type="text" v-model="searchTerm" />
-      <button @click="search" type="button">Vai</button>
+      <Search @searchTerm="search" />
     </header>
     <!--//// MAIN -->
     <main>
       <!-- Search results movies -->
       <ul v-for="movie in movies" :key="movie.id">
-        MOVIES
         <li>Titolo: {{ movie.title }}</li>
         <li>Titolo Originale: {{ movie.original_title }}</li>
         <li>Lingua: {{ movie.original_language }}</li>
@@ -21,13 +18,15 @@
 </template>
 
 <script>
+import Search from "@/components/Search.vue";
 import axios from "axios";
 export default {
   name: "App",
-  components: {},
+  components: {
+    Search,
+  },
   data() {
     return {
-      searchTerm: "",
       movies: [],
       api: {
         baseUrl: "https://api.themoviedb.org/3",
@@ -36,12 +35,13 @@ export default {
     };
   },
   methods: {
-    search() {
+    search(term) {
       axios
         .get(
-          `${this.api.baseUrl}/search/movie?api_key=${this.api.key}&query=${this.searchTerm}`
+          `${this.api.baseUrl}/search/movie?api_key=${this.api.key}&query=${term}`
         )
         .then((res) => {
+          console.log(res.data.results);
           this.movies = res.data.results;
         });
     },
