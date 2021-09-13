@@ -2,14 +2,19 @@
   <div id="app">
     <!-- HEADER -->
     <header class="bg-dark">
-      <Search @searchTerm="search" />
+      <div class="container">
+        <h1>BOOLFIX</h1>
+        <Search @searchTerm="search" />
+      </div>
     </header>
     <!-- MAIN -->
-    <main>
-      <!-- Results search movies -->
-      <ResultList :list="movies" />
-      <!-- Results search series -->
-      <ResultList :list="series" />
+    <main class="bg-secondary">
+      <section class="container">
+        <!-- Results search movies -->
+        <ResultList :list="movies" />
+        <!-- Results search series -->
+        <ResultList :list="series" />
+      </section>
     </main>
   </div>
 </template>
@@ -67,4 +72,8 @@ export default {
 <style lang="scss">
 @import "./scss/generalStyle.scss";
 @import "./scss/headerStyle.scss";
+main {
+  min-height: 100vh;
+  height: 100%;
+}
 </style>

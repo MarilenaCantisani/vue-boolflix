@@ -3,11 +3,12 @@
     <!-- Search-bar -->
     <input
       type="text"
+      placeholder="Cerca..."
       v-model="termSearched"
       @keyup.enter="$emit('searchTerm', termSearched)"
     />
     <button @click="$emit('searchTerm', termSearched)" type="button">
-      Cerca
+      <i class="fas fa-search"></i>
     </button>
   </div>
 </template>
@@ -23,5 +24,5 @@ export default {
 };
 </script>
 
-<style>
+<style scoped lang="scss">
 </style>

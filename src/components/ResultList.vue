@@ -1,7 +1,11 @@
 <template>
-  <section class="search-result">
+  <section class="search-result row">
     <!-- Search results movies -->
-    <div v-for="item in list" :key="item.id">
+    <div
+      v-for="item in list"
+      :key="item.id"
+      class="col-xs-12 col-md-4 col-lg-3 card-template"
+    >
       <Card :item="item" />
     </div>
   </section>
@@ -19,5 +23,8 @@ export default {
 </script>
 
 <style>
+.card-template {
+  padding: 20px;
+}
 </style>
 
