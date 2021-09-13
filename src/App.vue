@@ -1,15 +1,15 @@
 <template>
   <div id="app">
-    //// HEADER
+    <!-- HEADER -->
     <header>
       <Search @searchTerm="search" />
     </header>
-    //// MAIN
+    <!-- MAIN -->
     <main>
       <!-- Results search movies -->
-      <ResultList :list="movies" :type="typeMovie" />
+      <ResultList :list="movies" />
       <!-- Results search series -->
-      <ResultList :list="series" :type="typeSeries" />
+      <ResultList :list="series" />
     </main>
   </div>
 </template>
@@ -26,9 +26,6 @@ export default {
   },
   data() {
     return {
-      //* Type to pass as parameters
-      typeMovie: "movies",
-      typeSeries: "series",
       //* Filtered array of movies and tv series
       movies: [],
       series: [],
@@ -40,24 +37,27 @@ export default {
     };
   },
   methods: {
-    search(term) {
-      //// Call axios to movies
+    search(query) {
+      if (!query) {
+        this.movies = this.series = [];
+        return;
+      }
+      //// Fetch movies list
+      this.fetchApi(query, "search/movie", "movies");
+      //// Fetch series list
+      this.fetchApi(query, "search/tv", "series");
+    },
+    fetchApi(query, endpoint, entity) {
       axios
         .get(
-          `${this.api.baseUrl}/search/movie?api_key=${this.api.key}&query=${term}`
+          `${this.api.baseUrl}/${endpoint}?api_key=${this.api.key}&query=${query}`
         )
         .then((res) => {
           console.log(res.data.results);
-          this.movies = res.data.results;
-        });
-      //// Call axios to the series
-      axios
-        .get(
-          `${this.api.baseUrl}/search/tv?api_key=${this.api.key}&query=${term}`
-        )
-        .then((res) => {
-          console.log(res.data.results);
-          this.series = res.data.results;
+          this[entity] = res.data.results;
+        })
+        .catch((err) => {
+          console.log(err);
         });
     },
   },

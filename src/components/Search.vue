@@ -1,7 +1,11 @@
 <template>
   <div class="search-bar">
-    //// Search-bar
-    <input type="text" v-model="termSearched" />
+    <!-- Search-bar -->
+    <input
+      type="text"
+      v-model="termSearched"
+      @keyup.enter="$emit('searchTerm', termSearched)"
+    />
     <button @click="$emit('searchTerm', termSearched)" type="button">
       Cerca
     </button>
