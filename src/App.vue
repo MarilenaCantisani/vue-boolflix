@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- HEADER -->
-    <header>
+    <header class="bg-dark">
       <Search @searchTerm="search" />
     </header>
     <!-- MAIN -->
@@ -65,4 +65,6 @@ export default {
 </script>
 
 <style lang="scss">
+@import "./scss/generalStyle.scss";
+@import "./scss/headerStyle.scss";
 </style>
