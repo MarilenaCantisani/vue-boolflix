@@ -36,7 +36,7 @@
         <span v-for="star in 5" :key="star">
           <i
             v-if="star <= getVoteAverage(item.vote_average)"
-            class="fas fa-star"
+            class="fas fa-star text-yellow"
           ></i>
           <i v-else class="far fa-star"></i>
         </span>
@@ -83,6 +83,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../scss/_vars.scss";
 .card {
   cursor: pointer;
   padding: 0;
@@ -104,5 +105,8 @@ export default {
     padding: 20px 40px;
     overflow-y: scroll;
   }
+}
+.text-yellow {
+  color: $yellow;
 }
 </style>
