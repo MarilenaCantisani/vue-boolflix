@@ -1,6 +1,7 @@
 .card {
     cursor: pointer;
     border: 0;
+    margin: 10px;
     .cover-image {
       position: relative;
     }
@@ -16,6 +17,7 @@
       height: 100%;
       padding: 20px 40px;
       overflow-y: scroll;
+
     }
   }
   .text-yellow {
