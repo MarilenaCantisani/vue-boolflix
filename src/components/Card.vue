@@ -2,16 +2,10 @@
   <!-- Card template  -->
   <div class="card shadow">
     <!-- Cover list item -->
-    <img
-      class="cover-image"
-      :src="getImage(item.poster_path)"
-      :alt="item.title || item.name"
-    />
+    <img class="cover-image" :src="image" :alt="title" />
     <ul class="description">
       <!-- Title list item -->
-      <li class="lh-base">
-        <strong>Titolo: </strong> {{ item.title || item.name }}
-      </li>
+      <li class="lh-base"><strong>Titolo: </strong> {{ title }}</li>
       <li class="lh-base">
         <strong>Titolo Originale:</strong>
         {{ item.original_title || item.original_name }}
@@ -21,7 +15,7 @@
         <strong>Lingua:</strong>
         <img
           v-if="languageFlag.includes(item.original_language)"
-          :src="getFlag(item.original_language)"
+          :src="flag"
           :alt="item.original_language"
           width="20"
           height="12"
@@ -33,13 +27,12 @@
       </li>
       <!-- Star list item -->
       <li class="text-center lh-lg my-3">
-        <span v-for="star in 5" :key="star">
-          <i
-            v-if="star <= getVoteAverage(item.vote_average)"
-            class="fas fa-star text-yellow"
-          ></i>
-          <i v-else class="far fa-star"></i>
-        </span>
+        <i
+          v-for="star in 5"
+          :key="star"
+          :class="star <= voteAverage ? 'fas' : 'far'"
+          class="fa-star text-yellow"
+        ></i>
       </li>
       <!-- Overview list item -->
       <li class="fst-italic">{{ item.overview }}</li>
@@ -61,22 +54,24 @@ export default {
       },
     };
   },
-  methods: {
-    //// Function that returns the path of the flag image
-    getFlag(language) {
-      return require(`../assets/${language}.png`);
+  computed: {
+    //// Movies/series title
+    title() {
+      return this.item.title || this.item.name;
     },
-    //// Function that returns the covers of films/series
-    getImage(path) {
-      if (!path)
+    //// Path of the flag image
+    flag() {
+      return require(`../assets/${this.item.original_language}.png`);
+    },
+    //// Covers of films/series
+    image() {
+      if (!this.item.poster_path)
         return `https://www.altavod.com/assets/images/poster-placeholder.png`;
-      return `${this.apiImage.baseUrlImage}/${this.apiImage.sizeImage}${path}`;
+      return `${this.apiImage.baseUrlImage}/${this.apiImage.sizeImage}${this.item.poster_path}`;
     },
-    //// Function that returns tha vote from 1 to 5 rounded up
-    getVoteAverage(number) {
-      const vote = number / 2;
-      const roundNumber = Math.ceil(vote);
-      return roundNumber;
+    //// Vote from 1 to 5 rounded up
+    voteAverage() {
+      return Math.ceil(this.item.vote_average / 2);
     },
   },
 };
@@ -84,29 +79,5 @@ export default {
 
 <style scoped lang="scss">
 @import "../scss/_vars.scss";
-.card {
-  cursor: pointer;
-  padding: 0;
-  margin: 0;
-  border: 0;
-  .cover-image {
-    position: relative;
-  }
-  .description {
-    position: absolute;
-    visibility: hidden;
-    list-style-type: none;
-  }
-  &:hover .description {
-    visibility: visible;
-    background-color: black;
-    color: white;
-    height: 100%;
-    padding: 20px 40px;
-    overflow-y: scroll;
-  }
-}
-.text-yellow {
-  color: $yellow;
-}
+@import "../scss/cardStyle.scss";
 </style>

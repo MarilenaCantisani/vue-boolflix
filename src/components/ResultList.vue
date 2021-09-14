@@ -1,11 +1,13 @@
 <template>
-  <section class="search-result row">
-    <!-- Search results movies -->
+  <!-- Search results -->
+  <section class="row">
+    <h2>{{ title }}</h2>
     <div
       v-for="item in list"
       :key="item.id"
       class="col-xs-12 col-md-4 col-lg-3 card-template"
     >
+      <!-- Card component -->
       <Card :item="item" />
     </div>
   </section>
@@ -18,13 +20,15 @@ export default {
   components: {
     Card,
   },
-  props: ["list"],
+  props: ["list", "title"],
 };
 </script>
 
-<style>
-.card-template {
-  padding: 20px;
+<style scoped lang="scss">
+h2 {
+  margin-top: 20px;
+  padding-left: 20px;
+  font-weight: bolder;
 }
 </style>
 

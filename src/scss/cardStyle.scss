@@ -1,0 +1,23 @@
+.card {
+    cursor: pointer;
+    border: 0;
+    .cover-image {
+      position: relative;
+    }
+    .description {
+      position: absolute;
+      visibility: hidden;
+      list-style-type: none;
+    }
+    &:hover .description {
+      visibility: visible;
+      background-color: $light-black;
+      color: white;
+      height: 100%;
+      padding: 20px 40px;
+      overflow-y: scroll;
+    }
+  }
+  .text-yellow {
+    color: $yellow;
+  }

@@ -3,25 +3,28 @@
     <!-- HEADER -->
     <header class="bg-dark">
       <div class="container">
-        <h1>BOOLFIX</h1>
+        <h1><a href="#">BOOLFIX</a></h1>
+        <!-- Search component  -->
         <Search @searchTerm="search" />
       </div>
     </header>
     <!-- MAIN -->
     <main class="bg-secondary">
-      <section class="container">
+      <article class="container">
         <!-- Results search movies -->
-        <ResultList :list="movies" />
+        <ResultList title="Movies" :list="movies" />
         <!-- Results search series -->
-        <ResultList :list="series" />
-      </section>
+        <ResultList title="Series" :list="series" />
+      </article>
     </main>
   </div>
 </template>
 
 <script>
+//// Import components
 import Search from "@/components/Search.vue";
 import ResultList from "@/components/ResultList.vue";
+//// Import axios
 import axios from "axios";
 export default {
   name: "App",

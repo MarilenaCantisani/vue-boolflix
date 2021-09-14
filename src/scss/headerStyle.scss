@@ -11,5 +11,12 @@ header {
   h1 {
     color: $red;
     font-weight: bold;
+    a {
+      color: $red;
+      text-decoration: none; 
+      &:hover {
+        color: $red;
+      }
+    }
 }
 };
